@@ -1,31 +1,18 @@
 const axios = require("axios")
 const {Pokemon, Type}= require("../db")
 
-const pokemonApiUrl=()=>{
-
-    return axios("https://pokeapi.co/api/v2/pokemon")
-    .then((res)=>res.data)
+const pokeApi=  async()=>{
+    let resultadosDeLaApi=[];
+    const pedido= await axios("https://pokeapi.co/api/v2/pokemon")
+    resultadosDeLaApi= pedido.data.results;
+    pedidoDos= await axios(pedido.data.next)
+    resultadosDeLaApi= [...resultadosDeLaApi, ...pedidoDos.data.results]
+    return resultadosDeLaApi
 }
-
-const pokemonApi= async ()=>{
- 
-    const pokeapi= await pokemonApiUrl()
-    return axios(pokeapi.next)
-    .then((res)=>res.data)
-}
-
-const todosLosPokemones= async()=>{
-    let primerData= await pokemonApiUrl()
-    let segundaData= await pokemonApi()
-    let ambasData=[...primerData.results, ...segundaData.results]
-
-       return ambasData;
-}
-
 
 const todosLosPokemonApi= async()=>{
     try {
-        const arrayPoke= await todosLosPokemones()
+        const arrayPoke= await pokeApi()
         const arrayPromesas= arrayPoke.map((ele)=>{
             return axios(ele.url)
         })
@@ -43,12 +30,13 @@ const todosLosPokemonApi= async()=>{
                     Velocidad: ele.data.stats[5].base_stat,
                     Altura: ele.data.height / 10,
                     Peso: ele.data.weight / 10 ,
-                    type:ele.data.types.map(elemento=>elemento.type.name),
+                    type:ele.data.types.map(elemento=>elemento.type.name.toString()),
                     img: ele.data.sprites.other.home.front_default
+                    
                 }
                
             })
-            console.log(arrayPokemon)
+           
             return arrayPokemon
            
             
@@ -88,4 +76,4 @@ const ambosDatos= async()=>{
     }
 }
 
-module.exports={todosLosPokemones, todosLosPokemonApi, infoDbTodosLosPokes,ambosDatos}
+module.exports={pokeApi, todosLosPokemonApi, infoDbTodosLosPokes,ambosDatos}

@@ -18,12 +18,15 @@ routerPostPokemon.post("/", async(req, res)=>{
             Velocidad,
             Altura,
             Peso,
-            img
+            img, 
+            
         })
 
         const tiposDb= await Type.findAll({
             where:{name:type},
-        })
+        }  )
+            
+      
 
         await crearPokemon.addType(tiposDb)
         res.send("poke creado con exito")
