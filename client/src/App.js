@@ -8,16 +8,19 @@ import Error404 from './Paginas/Error404';
 
 
 function App() {
-  console.log(Landing)
   return (
-  
+   
     <Routes>
-      <Route path='/' element={<Landing/>}/>
-      <Route path='/home' element={<Home/>}/>
-      <Route path='/detalle/:id' element={<Detalle/>}/>
-      <Route path='/create' element={<CreandoPoke/>}/>
-      <Route path='*' element={<Error404/>}/>
+      <Route exact path='/' element={<Landing/>}/>
+      <Route exact path='/home' element={<Home/>}/>
+      <Route exact path='/detalle/:id' element={<Detalle/>}/>
+      <Route exact path='/create' element={<CreandoPoke/>}/>
+      <Route exact path='*' element={<Error404/>}/>
     </Routes>
+  
+  
+   
+    
  
   );
 }
