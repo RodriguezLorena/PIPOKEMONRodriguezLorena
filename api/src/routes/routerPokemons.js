@@ -7,15 +7,22 @@ const { todosLosPokemones, ambosDatos} = require("../controles/controlesPokemon"
 const routerPokemons= Router();
 
 routerPokemons.get("/", async(req, res)=>{
-    const todosLosPoke= await ambosDatos()
+    try {
+        const todosLosPoke= await ambosDatos()
    
-    const {name}=req.query
-    if(name){
-        let nombrePoke= todosLosPoke.find((elemento)=> elemento.name == name)
-        res.status(200).send(nombrePoke)
-    }else{
-        res.status(200).send(todosLosPoke)
+        const {name}=req.query
+        if(name){
+            let nombrePoke= todosLosPoke.find((elemento)=> elemento.name == name)
+            res.status(200).send(nombrePoke)
+        }else{
+            res.status(200).send(todosLosPoke)
+        }
+        
+    } catch (error) {
+        console.log(error.message)
+        res.status(500).send("Error del servidor")
     }
+    
     
 })
 
