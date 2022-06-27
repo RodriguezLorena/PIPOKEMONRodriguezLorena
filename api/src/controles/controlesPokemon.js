@@ -777,4 +777,5 @@ const ambosDatos= async()=>{
     }
 }
 
+
 module.exports={pokeApi, todosLosPokemonApi, infoDbTodosLosPokes,ambosDatos}
