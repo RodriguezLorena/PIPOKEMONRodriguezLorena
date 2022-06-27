@@ -10,3 +10,18 @@ export function traerLosPokemones(){
         .catch(error=>console.log(error))
     }
 }
+
+export function detalleDePokemon(id){
+    return async function(dispatch){
+        try {
+            let detalle = await axios.get(`http://localhost:3001/pokemons/${id}`)
+            return dispatch({
+    
+                type:"SELECT_POKEMON",
+                payload:detalle.data
+            })
+        }catch (error) {
+            console.log("ERROR EN DETALLE DEL POKEMON", error)
+        }   
+    }     
+}

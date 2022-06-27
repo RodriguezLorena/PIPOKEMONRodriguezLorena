@@ -1,5 +1,6 @@
 const inicialState={
-    pokemons:[]
+    pokemons:[],
+    unPokemon: []
 }
 
 function reducer(state=inicialState, {type, payload}){
@@ -9,6 +10,11 @@ function reducer(state=inicialState, {type, payload}){
                 ...state,
                 pokemons: payload,
 
+            }
+        case "SELECT_POKEMON":
+            return{
+                ...state,
+                unPokemon: payload
             }
             default: return state
     }

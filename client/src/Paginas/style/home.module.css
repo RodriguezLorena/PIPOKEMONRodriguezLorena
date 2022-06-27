@@ -1,6 +1,8 @@
 .contenedor{
     background-color: aqua;
-    display:flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 230px);
+    gap: 30px;
+    padding: 1rem;
     
 }

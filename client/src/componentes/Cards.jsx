@@ -1,12 +1,13 @@
 import Card from "./Card";
+import style from "../Paginas/style/home.module.css"
 
 
-const Cards = ({pokemones}) => {
-    {console.log(pokemones[0])}
+const Cards = ({listaDePokemon}) => {
+    // {console.log(listaDePokemon[0])}
   return (
-    <div>
+    <div className={style.contenedor}>
        {
-        pokemones && pokemones.map((poke)=>( 
+        listaDePokemon && listaDePokemon.map((poke)=>( 
                 <div key={poke.id}>
                     <Card name={poke.name} img={poke.img} types={poke.types}/>
                 </div>
