@@ -14,7 +14,7 @@ function reducer(state=inicialState, {type, payload}){
         case "SELECT_POKEMON":
             return{
                 ...state,
-                unPokemon: payload
+                unPokemon: payload,
             }
             default: return state
     }

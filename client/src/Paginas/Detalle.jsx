@@ -6,16 +6,22 @@ import { detalleDePokemon } from '../redux/actions'
 
 const Detalle = () => {
   const {id}= useParams();
+  console.log("esto es el id", id)
   const unPokemon= useSelector((state)=> state.unPokemon)
   const dispatch= useDispatch()
 
   useEffect(()=>{
     dispatch(detalleDePokemon(id))
-    return
   }, [dispatch, id])
   return (
     <div>ESTO ES DETALLE
-
+       <h4>{unPokemon.name}</h4>
+       <p>{unPokemon.vida}</p>
+       <p>{unPokemon.Altura}</p>
+       <p>{unPokemon.Defensa}</p>
+       <p>{unPokemon.Velocidad}</p>
+       <p>{unPokemon.Peso}</p>
+       <img src={unPokemon.img} alt={unPokemon.name}/>
 
     </div>
   )

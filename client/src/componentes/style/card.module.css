@@ -1,11 +1,28 @@
-.cardConten{
-    border: 1px solid black;
-
+.cardConten{  
+    box-shadow: rgb(195, 216, 238) 0px 10px 20px -10px;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 10px; 
 }
 
 .img{
     width: 100%;
 }
+.nombre{
+    color:white;
+    text-transform: uppercase;
+}
+.tipos{
+    color: white;
+    flex-direction: row;
+    display: inline;
+    margin: 5px; 
+    text-transform: uppercase;  
+}
+.span{
+    color: white;
+}
+
 .link{
     text-decoration: none;
 }

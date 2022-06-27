@@ -1,5 +1,5 @@
 import Card from "./Card";
-import style from "../Paginas/style/home.module.css"
+import style from "./style/cards.module.css"
 
 
 const Cards = ({listaDePokemon}) => {
@@ -9,7 +9,7 @@ const Cards = ({listaDePokemon}) => {
        {
         listaDePokemon && listaDePokemon.map((poke)=>( 
                 <div key={poke.id}>
-                    <Card name={poke.name} img={poke.img} types={poke.types}/>
+                    <Card name={poke.name} img={poke.img} types={poke.types} id={poke.id}/>
                 </div>
             )
         )

@@ -4,6 +4,7 @@ import Cards from '../componentes/Cards'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector} from "react-redux"
 import { traerLosPokemones } from '../redux/actions'
+import style from "./style/home.module.css"
 
 
 
@@ -56,9 +57,9 @@ const Home = () => {
               : (<button key={num} onClick={()=>paginas(num)}>{num}</button>)
             })
         }
-        <button onClick={cambiarDepagina}>ir a la siguiente</button>
+        <button onClick={cambiarDepagina}>ir a la pagina siguiente</button>
       </div>
-      <div>
+      <div className={style.fondo}>
       <Cards listaDePokemon={listaDePokemon}/>
       </div> 
     </div>
