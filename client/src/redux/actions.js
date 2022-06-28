@@ -37,6 +37,12 @@ export function detalleDePokemon(id){
     }     
 }
 
+export const desmontarPokemon=()=>{
+        return({
+            type: "DESMONTAR_POKEMON"
+        })    
+}
+
 export function traerLosTipos(){
     return async function(dispatch){
         try {
@@ -48,5 +54,19 @@ export function traerLosTipos(){
         } catch (error) {
             console.log("ERROR EN LA LLAMADA A LA RUTA TIPOS", error)
         }
+    }
+}
+
+export function actionTipos(payload){
+    return{
+        type: "FILTRO_TIPOS",
+        payload
+    }
+}
+
+export function actionOrdenAlabetico(payload){
+    return{
+        type: "ORDEN_ALFABETICO",
+        payload
     }
 }

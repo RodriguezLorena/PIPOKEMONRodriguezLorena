@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-import { detalleDePokemon } from '../redux/actions'
+import { detalleDePokemon, desmontarPokemon } from '../redux/actions'
 
 const Detalle = () => {
   const {id}= useParams();
@@ -12,6 +12,9 @@ const Detalle = () => {
 
   useEffect(()=>{
     dispatch(detalleDePokemon(id))
+    return ()=>{
+      dispatch(desmontarPokemon())
+    }
   
   }, [dispatch, id])
 

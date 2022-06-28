@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import Cards from '../componentes/Cards'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector} from "react-redux"
-import { traerLosPokemones } from '../redux/actions'
+import { traerLosPokemones} from '../redux/actions'
 import style from "./style/home.module.css"
+import Encabezado from '../componentes/Encabezado'
 
 
 
@@ -16,6 +17,7 @@ const Home = () => {
 
   useEffect(()=>{
     dispatch(traerLosPokemones())
+   
   }, [dispatch])
 
 
@@ -48,6 +50,7 @@ const Home = () => {
   return (
     <div>
       <Link to="/">Volver al Inicio</Link>
+      <Encabezado setCurrentPage={setCurrentPage}/>
       <div>
         <button onClick={volverAlaAnterior}>Volver a la pagina anterior</button>
         {
