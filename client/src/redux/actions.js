@@ -1,4 +1,13 @@
 import axios from "axios"
+const esperarPro=(time)=> new Promise(    
+    (resolve, reject)=>{
+        setTimeout(()=>{
+            console.log("se resolvio")
+            resolve("se resolvio")
+        }, time )
+    }
+) 
+
 
 export function traerLosPokemones(){
     return (dispatch)=>{
@@ -16,6 +25,7 @@ export function detalleDePokemon(id){
     return async function(dispatch){
         try {
             let detalle = await axios(`http://localhost:3001/pokemons/${id}`)
+            await esperarPro(0)
             return dispatch({
                 type:"SELECT_POKEMON",
                 payload: detalle.data
@@ -25,4 +35,18 @@ export function detalleDePokemon(id){
             console.log("ERROR EN DETALLE DEL POKEMON", error)
         }   
     }     
+}
+
+export function traerLosTipos(){
+    return async function(dispatch){
+        try {
+            let dataTipos= await axios("http://localhost:3001/tipos")
+            return dispatch({
+                type: "GET_TIPOS",
+                payload:dataTipos.data
+            })
+        } catch (error) {
+            console.log("ERROR EN LA LLAMADA A LA RUTA TIPOS", error)
+        }
+    }
 }

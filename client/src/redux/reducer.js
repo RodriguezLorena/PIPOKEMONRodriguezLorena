@@ -1,6 +1,7 @@
 const inicialState={
     pokemons:[],
-    unPokemon: []
+    unPokemon:[],
+    tipos:[]
 }
 
 function reducer(state=inicialState, {type, payload}){
@@ -15,6 +16,11 @@ function reducer(state=inicialState, {type, payload}){
             return{
                 ...state,
                 unPokemon: payload,
+            }
+        case "GET_TIPOS":
+            return{
+                ...state,
+                tipos: payload
             }
             default: return state
     }
