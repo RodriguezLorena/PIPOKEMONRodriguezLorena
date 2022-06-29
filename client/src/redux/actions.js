@@ -70,3 +70,17 @@ export function actionOrdenAlabetico(payload){
         payload
     }
 }
+
+export function actionCreadosExistentes(payload){
+    return async function(dispatch){
+        try {
+            return dispatch({
+                type:"FILTRO_ORIGEN",
+                payload
+            })   
+        } catch (error) {
+            console.log("ERROR EN FILTROS DE ORIGEN (creados o existentes) ", error)
+        }
+    }
+  
+}

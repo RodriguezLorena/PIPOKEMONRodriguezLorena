@@ -32,7 +32,7 @@ function reducer(state=inicialState, {type, payload}){
         case "FILTRO_TIPOS":
             const listaPokemon=[...state.pokeNoModificable]
             let listaTipos;
-            if(payload === "all"){
+            if(payload === "todos"){
                 listaTipos = listaPokemon;
             }else{
                 listaTipos = listaPokemon.filter((ele)=> ele.types?.map(ele=> ele.name).includes(payload))
@@ -66,6 +66,18 @@ function reducer(state=inicialState, {type, payload}){
             return{
                 ...state,
                 pokemons: listaDePokemon
+            }
+        case "FILTRO_ORIGEN":
+            let losPoke=[...state.pokeNoModificable];
+            let filtrados;
+            if(payload === "todos"){
+                filtrados=losPoke
+            }else{
+                filtrados= payload === "guardadosEnLaDb"? losPoke.filter(poke=>(poke.id).toString().length > 10): losPoke.filter(poke=>(poke.id).toString().length < 10)
+            }
+            return{
+                ...state,
+                pokemons: filtrados
             }
             default: return state
     }
