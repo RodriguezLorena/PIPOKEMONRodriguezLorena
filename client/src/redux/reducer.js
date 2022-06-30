@@ -79,6 +79,43 @@ function reducer(state=inicialState, {type, payload}){
                 ...state,
                 pokemons: filtrados
             }
+        case "ORDEN_POR_ATAQUE":
+            let listaDeAtaque =[...state.pokemons];
+            if(payload === "minMax"){
+                listaDeAtaque.sort((obj1, obj2)=>{
+                    if(Number(obj1.Ataque)< Number(obj2.Ataque)){
+                        return -1
+                    }else{
+                        return 1
+                    }
+                })
+            }
+            if(payload === "maxMin"){
+                listaDeAtaque.sort((obj1, obj2)=>{
+                    if(Number(obj1.Ataque) < Number(obj2.Ataque)){
+                        return 1
+                    }else{
+                        return -1
+                    }
+                })
+            }
+            return{
+                ...state,
+                pokemons: listaDeAtaque
+            }
+        case "BUSQUEDA_POR_NOMBRE":
+            let busquedaPokemon=[...state.pokeNoModificable]
+            let resultado= busquedaPokemon.filter(ele=>(ele.name.toLowerCase()).includes(payload.toString().toLowerCase()))
+            if(resultado){
+                return{
+                    ...state,
+                    pokemons: resultado
+                }
+            }else{
+                return{
+                    ...state
+                }
+            }
             default: return state
     }
    

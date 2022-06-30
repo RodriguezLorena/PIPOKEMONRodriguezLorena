@@ -1,0 +1,16 @@
+.contenedor{
+    background-color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 1rem 0;
+}
+
+.filtro{
+    padding: 1rem;
+    border-radius: 20px;
+}
+.buscador{
+    padding: 1rem;
+    border-radius: 20px;
+}

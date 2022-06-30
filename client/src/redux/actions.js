@@ -84,3 +84,22 @@ export function actionCreadosExistentes(payload){
     }
   
 }
+export function actionOrdenarPorAtaque(payload){
+    return{
+        type:"ORDEN_POR_ATAQUE",
+        payload
+    }
+}
+
+export const actionBusquedaPorNombre=(payload)=>{
+    return async function(dispatch){
+        try {
+            return dispatch({
+                type: "BUSQUEDA_POR_NOMBRE",
+                payload
+            })
+        } catch (error) {
+            console.log("ERROR EN LA BUSQUEDA POR NOMBRE DE POKEMON ", error)
+        }
+    }
+} 

@@ -15,7 +15,6 @@ const Detalle = () => {
     return ()=>{
       dispatch(desmontarPokemon())
     }
-  
   }, [dispatch, id])
 
   return (
