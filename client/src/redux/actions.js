@@ -103,3 +103,14 @@ export const actionBusquedaPorNombre=(payload)=>{
         }
     }
 } 
+
+export const crearPokemon=(payload)=>{
+    return async function(){
+        try {
+            let subiendoPokemon= await axios.post("http://localhost:3001/create", payload)
+            return subiendoPokemon;
+        } catch (error) {
+            console.log("ERROR EN PEDIDO A LA RUTA POST DE CREACION ", error)
+        }
+    }
+}
