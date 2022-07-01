@@ -1,10 +1,12 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { traerLosTipos, crearPokemon } from '../redux/actions'
 
 const CreandoPoke = () => {
   const dispatch= useDispatch()
+  const navegadorAutomatico= useNavigate()
 
   const tipos= useSelector((state)=> state.tipos)
 
@@ -39,26 +41,47 @@ const CreandoPoke = () => {
   }
 
   const handlerSeleccionarTipo=(e)=>{
-      setNuevoPokemon({
-        ...nuevoPokemon,
-        type:[
-          ...nuevoPokemon.type,
-          e.target.value
-        ]
-        
-      })
+    setNuevoPokemon({
+      ...nuevoPokemon,
+      type:[
+        ...nuevoPokemon.type,
+        e.target.value
+      ]  
+    })
+  
+   
     }
   console.log("ACA ESTA TYPES ", nuevoPokemon.type)
   
+  const handlerEliminarTipo=(e)=>{
+    const filtrados= nuevoPokemon.type.filter(ele=> ele !== e.target.innerHTML)
+    setNuevoPokemon({
+      ...nuevoPokemon,
+      type:filtrados
+    })
+    setValidacion(validaciones({
+      ...nuevoPokemon,
+      [e.target.name]: e.target.value
+    }))
+  }
   
   
   const handlerCraerPokemon=(e)=>{
-    e.preventDefault()
-    const pokemonCreado={
-      ...nuevoPokemon 
+    if(Object.keys(validacion).length === 0){
+      alert("todos los campos son requeridos")
+    }else{
+      e.preventDefault()
+      const pokemonCreado={
+        ...nuevoPokemon 
+      }
+      dispatch(crearPokemon(pokemonCreado))
+      alert("Tu Nuevo pokemon fue crado exitosamente")
+      setTimeout(()=>{
+        navegadorAutomatico("/home")
+      })
     }
-    dispatch(crearPokemon(pokemonCreado))
-    alert("Tu Nuevo pokemon fue crado exitosamente")
+   
+  
    
   }
   //VALIDACIONES
@@ -91,6 +114,8 @@ const CreandoPoke = () => {
     if(Number(nuevoPokemon.Peso) > 100 ) validar.Peso = "tiene que ser un peso menor a 100"
 
     if(!nuevoPokemon.img.includes("https://")) validar.img ="Debe comenzar con https://"
+    
+    validar.type= "Debe contener al menos un tipo"
     return validar
   }
 
@@ -102,65 +127,63 @@ const CreandoPoke = () => {
             Nombre 
             <input id="nombreInput" type="text" name="name" value={nuevoPokemon.name} 
             placeholder="Escribe el Nombre" onChange={(e)=>handlerInput(e)}/>
-              {validacion.name && <p>{validacion.name}</p>}
           </label>
         </form>
+        {validacion.name && <p>{validacion.name}</p>}
       </div>
 
       <div>
         <label>
           Vida 
           <input type= "number" name="vida" value={nuevoPokemon.vida} onChange={(e)=>handlerInput(e)} placeholder='Coloque la vida'/>
-            {validacion.vida && <p>{validacion.vida}</p>}
         </label>
+        {validacion.vida && <p>{validacion.vida}</p>}
       </div>
 
       <div>
         <label>
             Altura
             <input type= "number" name="Altura" value={nuevoPokemon.Altura} onChange={(e)=>handlerInput(e)} placeholder='Coloque Vida Minima'/>
-              {validacion.Altura && <p>{validacion.Altura}</p>}
         </label>
       </div>
-
+      {validacion.Altura && <p>{validacion.Altura}</p>}
       <div>
         <label>
             Ataque
             <input type= "number" name="Ataque" value={nuevoPokemon.Ataque} onChange={(e)=>handlerInput(e)} placeholder='Coloque Ataque Minima'/>
-            {validacion.Ataque && <p>{validacion.Ataque}</p>}
         </label>
       </div>
-
+      {validacion.Ataque && <p>{validacion.Ataque}</p>}
       <div>
         <label>
             Defensa 
             <input type= "number" name="Defensa" value={nuevoPokemon.Defensa} onChange={(e)=>handlerInput(e)} placeholder='Coloque Defensa Minima'/>
-            {validacion.Defensa && <p>{validacion.Defensa}</p>}
         </label>
+        {validacion.Defensa && <p>{validacion.Defensa}</p>}
       </div>
 
       <div>
         <label>
             Velocidad 
             <input type= "number" name="Velocidad" value={nuevoPokemon.Velocidad} onChange={(e)=>handlerInput(e)} placeholder='Coloque Velocidad Minima'/>
-              {validacion.Velocidad && <p>{validacion.Velocidad}</p>}
         </label>
+        {validacion.Velocidad && <p>{validacion.Velocidad}</p>}
       </div>
 
       <div>
         <label>
             Peso  
             <input type= "number" name="Peso" value={nuevoPokemon.Peso} onChange={(e)=>handlerInput(e)} placeholder='Coloque Peso Minimo'/>
-              {validacion.Peso && <p>{validacion.Peso}</p>}
         </label>
+        {validacion.Peso && <p>{validacion.Peso}</p>}
       </div>
 
       <div>
         <label>
           Imagen
           <input type="text" name="img" value={nuevoPokemon.img} onChange={(e)=>handlerInput(e)} placeholder='Coloque su imagen aquí'/>
-          {validacion.img && <p>{validacion.img}</p>}
         </label>
+        {validacion.img && <p>{validacion.img}</p>}
       </div>
 
       <div>
@@ -172,13 +195,17 @@ const CreandoPoke = () => {
               })
             }
           </select>
+        
           <ul>
             {
-              nuevoPokemon.type.length > 0 && nuevoPokemon.type.map(ele=> <li key={ele}>{ele}</li>)
+             nuevoPokemon.type.length > 0 ?nuevoPokemon.type.map(ele=> <li key={ele}  onClick={(e)=>handlerEliminarTipo(e)}>{ele}</li>)
+             : (<p>{validacion.type}</p>)
             }
           </ul>
+         
+         
       </div>
-
+      
       <button onClick={(e)=>{handlerCraerPokemon(e)}}>Crear Otro Pokemon</button>
     
     </div>
