@@ -6,6 +6,7 @@ import { useDispatch, useSelector} from "react-redux"
 import { traerLosPokemones} from '../redux/actions'
 import style from "./style/home.module.css"
 import Encabezado from '../componentes/Encabezado'
+import Loading from '../componentes/style/Loading'
 
 
 
@@ -49,6 +50,9 @@ const Home = () => {
   }
   return (
     <div>
+      {pokemones.length > 0 ?(
+      
+      <div>
       <Link to="/">Volver al Inicio</Link>
       <Encabezado setCurrentPage={setCurrentPage}/>
       <div>
@@ -64,7 +68,11 @@ const Home = () => {
       </div>
       <div className={style.fondo}>
       <Cards listaDePokemon={listaDePokemon}/>
-      </div> 
+      </div>
+      </div>
+      ): (
+        <Loading/>
+      )} 
     </div>
   )
 }
