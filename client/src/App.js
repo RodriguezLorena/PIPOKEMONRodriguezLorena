@@ -1,10 +1,10 @@
-import './App.css';
+
 import { Routes, Route } from "react-router-dom"
-import Landing from './Paginas/Landing';
-import Home from './Paginas/Home';
-import Detalle from './Paginas/Detalle';
-import CreandoPoke from './Paginas/CreandoPoke';
-import Error404 from './Paginas/Error404';
+import Landing from './Paginas/Landing/Landing';
+import Home from './Paginas/Home/Home';
+import Detalle from './Paginas/Detalle/Detalle';
+import CreandoPoke from './Paginas/CreandoPokemon/CreandoPoke';
+import Error404 from './Paginas/Error404/Error404';
 
 
 function App() {

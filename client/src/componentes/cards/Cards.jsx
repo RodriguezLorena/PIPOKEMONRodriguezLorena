@@ -1,5 +1,5 @@
-import Card from "./Card";
-import style from "./style/cards.module.css"
+import Card from "../card/Card";
+import style from "./cards.module.css"
 
 
 const Cards = ({listaDePokemon}) => {

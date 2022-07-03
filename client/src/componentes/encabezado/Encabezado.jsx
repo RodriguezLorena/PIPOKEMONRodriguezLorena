@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import {React} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { actionTipos, actionOrdenAlabetico, traerLosTipos, actionCreadosExistentes, actionOrdenarPorAtaque, actionBusquedaPorNombre } from '../redux/actions'
-import style from "./style/encabezado.module.css"
+import { actionTipos, actionOrdenAlabetico, traerLosTipos, actionCreadosExistentes, actionOrdenarPorAtaque, actionBusquedaPorNombre } from '../../redux/actions'
+import style from "./encabezado.module.css"
 
 
 const Encabezado = ({setCurrentPage}) => {

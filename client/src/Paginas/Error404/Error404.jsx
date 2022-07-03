@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import style from "./style/error404.module.css"
+import style from "./error404.module.css"
+
 const Error404 = () => {
   return (
     <div className={style.contenedor}>

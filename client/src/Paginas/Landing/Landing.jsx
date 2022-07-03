@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import style from "../Paginas/style/landing.module.css"
+import style from "./landing.module.css"
 
 const Landing = () => {
   return (
