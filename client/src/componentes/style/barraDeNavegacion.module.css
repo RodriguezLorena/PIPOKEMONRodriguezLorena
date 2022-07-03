@@ -1,0 +1,22 @@
+.contenedor{
+ display: flex;
+ flex-direction: row;
+ justify-content: space-around;
+ background-color: black;
+ padding-top: 1rem;
+
+}
+.logo{
+    width:150px;
+}
+
+.create{
+    width: 100px;
+}
+.crearText{
+    color:white;
+
+}
+.link{
+    text-decoration: none;
+}

@@ -1,9 +1,45 @@
 .contenedor{
-    background-image: url("../../imagenes/error (1).png");
+    background-image: url("../../imagenes/error404.png");
     background-color: black;
-    background-position: 50%;
+    background-position: 70%;
     background-repeat: no-repeat;
     width: 100%;
     height: 100vh;
+    
        
+}
+.titulo{
+    color:white;
+    text-align: center;
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 1rem;
+}
+.parrafo1{
+    color: white;
+    width: 50%;
+    text-align: center;
+    padding-top: 10%;
+    letter-spacing: 0.3rem;
+    font-size: 2rem;
+}
+.parrafo{
+    color: white;
+    width: 50%;
+    text-align: center;
+    padding-top: 5%;
+    letter-spacing: 0.5rem;
+}
+.span{
+    color: white;
+    letter-spacing: 0.2rem;
+    padding-top: 5%;
+    width: 50%;
+    text-align: center;   
+    
+}
+
+.link{
+    color: white;
+    text-transform: uppercase;
 }

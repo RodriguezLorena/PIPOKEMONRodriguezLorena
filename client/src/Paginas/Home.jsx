@@ -7,6 +7,7 @@ import { traerLosPokemones} from '../redux/actions'
 import style from "./style/home.module.css"
 import Encabezado from '../componentes/Encabezado'
 import Loading from '../componentes/style/Loading'
+import BarraDeNavegacion from '../componentes/BarraDeNavegacion'
 
 
 
@@ -53,7 +54,7 @@ const Home = () => {
       {pokemones.length > 0 ?(
       
       <div>
-      <Link to="/">Volver al Inicio</Link>
+      <BarraDeNavegacion/>
       <Encabezado setCurrentPage={setCurrentPage}/>
       <div>
         <button onClick={volverAlaAnterior}>Volver a la pagina anterior</button>
