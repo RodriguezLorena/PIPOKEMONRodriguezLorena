@@ -5,7 +5,7 @@ const Error404 = () => {
   return (
     <div className={style.contenedor}>
       <h1>ERROR 404</h1>
-      <p>No te preocupes, todos cometemos errores</p>
+      <p>No te preocupes, de los errores se aprenden...</p>
       <span>quieres probar con este Link??</span>
       <Link to="/home"/>
 

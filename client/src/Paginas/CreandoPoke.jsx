@@ -9,11 +9,24 @@ const CreandoPoke = () => {
   const navegadorAutomatico= useNavigate()
 
   const tipos= useSelector((state)=> state.tipos)
+  const creadoDefinitivo= useSelector(state=> state.pokemonCreado)
 
   useEffect(()=>{
     dispatch(traerLosTipos())
-    dispatch(crearPokemon())
+   
   }, [dispatch])
+
+ useEffect(()=>{
+    if(creadoDefinitivo === "creado"){
+      alert("se creo exitosamente")
+      setTimeout(()=>{
+          navegadorAutomatico("/home")
+        })
+    }
+    if(creadoDefinitivo === "noCreado"){
+      alert("no se creo el pokemon")
+    }
+ }, [creadoDefinitivo])
 
   const [nuevoPokemon, setNuevoPokemon]= useState({
     name:"",
@@ -48,6 +61,13 @@ const CreandoPoke = () => {
         e.target.value
       ]  
     })
+    setValidacion(validaciones({
+      ...nuevoPokemon,
+      type:[
+        ...nuevoPokemon.type,
+        e.target.value
+      ]  
+    }))
   
    
     }
@@ -67,18 +87,16 @@ const CreandoPoke = () => {
   
   
   const handlerCraerPokemon=(e)=>{
-    if(Object.keys(validacion).length === 0){
+    e.preventDefault()
+    console.log("ACA ESTA VALIDACION DE CREARPOKEMON ", validacion)
+    if(Object.keys(validacion).length){
       alert("todos los campos son requeridos")
     }else{
-      e.preventDefault()
-      const pokemonCreado={
-        ...nuevoPokemon 
+      if(Object.keys(validaciones(nuevoPokemon)).length){
+        alert("los campos nue pueden estar vacios")
+      }else{
+        dispatch(crearPokemon(nuevoPokemon))
       }
-      dispatch(crearPokemon(pokemonCreado))
-      alert("Tu Nuevo pokemon fue crado exitosamente")
-      setTimeout(()=>{
-        navegadorAutomatico("/home")
-      })
     }
    
   
@@ -89,11 +107,11 @@ const CreandoPoke = () => {
 
   function validaciones(nuevoPokemon){
     let validar = {}
-    let nombre=/[1-9]/; 
+    let verificarQueNoContNumero=/[1-9]/; 
 
     if(nuevoPokemon.name.length < 2 ) validar.name = "Necesita tener un minimo de 2 caracteres";
     if(nuevoPokemon.name.length > 15) validar.name = "Tiene que tener un minimo de 15 caracteres";
-    if(nombre.test(nuevoPokemon.name)) validar.name= "No puede contener Numeros";
+    if(verificarQueNoContNumero.test(nuevoPokemon.name)) validar.name= "No puede contener Numeros";
    
     if(Number(nuevoPokemon.vida) < 20 ) validar.vida = "tiene que ser una vida mayor a 20"
     if(Number(nuevoPokemon.vida) > 100 ) validar.vida = "tiene que ser una vida menor a 100"
@@ -115,20 +133,21 @@ const CreandoPoke = () => {
 
     if(!nuevoPokemon.img.includes("https://")) validar.img ="Debe comenzar con https://"
     
-    validar.type= "Debe contener al menos un tipo"
+    if(!nuevoPokemon.type.length) validar.type= "Debe contener al menos un tipo"
     return validar
   }
-
+  
   return (
     <div>ESTO ES EL FORMULARIO
+      <form onSubmit={handlerCraerPokemon}>
       <div>
-        <form>
+       
           <label>
             Nombre 
             <input id="nombreInput" type="text" name="name" value={nuevoPokemon.name} 
             placeholder="Escribe el Nombre" onChange={(e)=>handlerInput(e)}/>
           </label>
-        </form>
+        
         {validacion.name && <p>{validacion.name}</p>}
       </div>
 
@@ -145,15 +164,17 @@ const CreandoPoke = () => {
             Altura
             <input type= "number" name="Altura" value={nuevoPokemon.Altura} onChange={(e)=>handlerInput(e)} placeholder='Coloque Vida Minima'/>
         </label>
+        {validacion.Altura && <p>{validacion.Altura}</p>}
       </div>
-      {validacion.Altura && <p>{validacion.Altura}</p>}
+    
       <div>
         <label>
             Ataque
             <input type= "number" name="Ataque" value={nuevoPokemon.Ataque} onChange={(e)=>handlerInput(e)} placeholder='Coloque Ataque Minima'/>
         </label>
+        {validacion.Ataque && <p>{validacion.Ataque}</p>}
       </div>
-      {validacion.Ataque && <p>{validacion.Ataque}</p>}
+    
       <div>
         <label>
             Defensa 
@@ -205,9 +226,11 @@ const CreandoPoke = () => {
          
          
       </div>
-      
-      <button onClick={(e)=>{handlerCraerPokemon(e)}}>Crear Otro Pokemon</button>
-    
+      <div>
+        <button onClick={(e)=>{handlerCraerPokemon(e)}}>Crear Otro Pokemon</button>
+      </div>
+     
+      </form>
     </div>
   )
 }
