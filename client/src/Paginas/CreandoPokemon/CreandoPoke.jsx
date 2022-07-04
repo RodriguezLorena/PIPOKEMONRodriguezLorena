@@ -1,8 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { traerLosTipos, crearPokemon } from "../../redux/actions";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  traerLosTipos,
+  crearPokemon,
+  traerLosPokemones,
+} from "../../redux/actions";
 import style from "./creandoPoke.module.css";
 import BarraDeNavegacion from "../../componentes/barraDeNavegacion/BarraDeNavegacion";
 
@@ -12,10 +16,13 @@ const CreandoPoke = () => {
 
   const tipos = useSelector((state) => state.tipos);
   const creadoDefinitivo = useSelector((state) => state.pokemonCreado);
+  const pokemones = useSelector((state) => state.pokemons);
+  console.log("ACA ESTAN TODOS ", pokemones);
 
   useEffect(() => {
     dispatch(traerLosTipos());
-  }, [dispatch]);
+    dispatch(traerLosPokemones());
+  },[dispatch]);
 
   useEffect(() => {
     if (creadoDefinitivo === "creado") {
@@ -27,7 +34,7 @@ const CreandoPoke = () => {
     if (creadoDefinitivo === "noCreado") {
       alert("no se creo el pokemon");
     }
-  }, [creadoDefinitivo, navegadorAutomatico]);
+  },[creadoDefinitivo, navegadorAutomatico]);
 
   const [nuevoPokemon, setNuevoPokemon] = useState({
     name: "",
@@ -103,6 +110,25 @@ const CreandoPoke = () => {
   function validaciones(nuevoPokemon) {
     let validar = {};
     let verificarQueNoContNumero = /[1-9]/;
+    let verificarQueNoTegaEspacio = /[\s]/;
+    
+
+    if (verificarQueNoTegaEspacio.test(nuevoPokemon.name))
+      validar.name = "No puede contener espacios";
+    if (
+      pokemones.find(
+        (ele) => ele.name.toUpperCase() === nuevoPokemon.name.toUpperCase()
+      )
+    ) {
+      const pokemonFiltrado = pokemones.find(
+        (ele) => ele.name.toUpperCase() === nuevoPokemon.name.toUpperCase()
+      );
+      validar.name = 
+        <Link to={`/detalle/${pokemonFiltrado.id}`}>
+         Ya tenemos este pokemon en nuestra base de datos. Quieres ver a {pokemonFiltrado.name}
+        </Link>
+      
+    }
 
     if (nuevoPokemon.name.length < 2)
       validar.name = "Necesita tener un minimo de 2 caracteres";
@@ -167,9 +193,11 @@ const CreandoPoke = () => {
               />
             </label>
 
-            {validacion.name? (
+            {validacion.name ? (
               <p className={style.validacion}>{validacion.name}</p>
-            ): <p className={style.validacion}>{" "}</p>}
+            ) : (
+              <p className={style.validacion}> </p>
+            )}
           </div>
 
           <div className={style.form}>
@@ -185,7 +213,9 @@ const CreandoPoke = () => {
             </label>
             {validacion.vida ? (
               <p className={style.validacion}>{validacion.vida}</p>
-            ): <p className={style.validacion}>{" "}</p>}
+            ) : (
+              <p className={style.validacion}> </p>
+            )}
           </div>
 
           <div className={style.form}>
@@ -199,9 +229,11 @@ const CreandoPoke = () => {
                 placeholder="Coloque Vida Minima"
               />
             </label>
-            {validacion.Altura? (
+            {validacion.Altura ? (
               <p className={style.validacion}>{validacion.Altura}</p>
-            ): <p className={style.validacion}>{" "}</p>}
+            ) : (
+              <p className={style.validacion}> </p>
+            )}
           </div>
 
           <div className={style.form}>
@@ -215,9 +247,11 @@ const CreandoPoke = () => {
                 placeholder="Coloque Ataque Minima"
               />
             </label>
-            {validacion.Ataque? (
+            {validacion.Ataque ? (
               <p className={style.validacion}>{validacion.Ataque}</p>
-            ): <p className={style.validacion}>{" "}</p>}
+            ) : (
+              <p className={style.validacion}> </p>
+            )}
           </div>
 
           <div className={style.form}>
@@ -231,9 +265,11 @@ const CreandoPoke = () => {
                 placeholder="Coloque Defensa Minima"
               />
             </label>
-            {validacion.Defensa? (
+            {validacion.Defensa ? (
               <p className={style.validacion}>{validacion.Defensa}</p>
-            ): <p className={style.validacion}>{" "}</p>}
+            ) : (
+              <p className={style.validacion}> </p>
+            )}
           </div>
 
           <div className={style.form}>
@@ -247,9 +283,11 @@ const CreandoPoke = () => {
                 placeholder="Coloque Velocidad Minima"
               />
             </label>
-            {validacion.Velocidad? (
+            {validacion.Velocidad ? (
               <p className={style.validacion}>{validacion.Velocidad}</p>
-            ): <p className={style.validacion}>{" "}</p>}
+            ) : (
+              <p className={style.validacion}> </p>
+            )}
           </div>
 
           <div className={style.form}>
@@ -263,9 +301,11 @@ const CreandoPoke = () => {
                 placeholder="Coloque Peso Minimo"
               />
             </label>
-            {validacion.Peso? (
+            {validacion.Peso ? (
               <p className={style.validacion}>{validacion.Peso}</p>
-            ): <p className={style.validacion}>{" "}</p>}
+            ) : (
+              <p className={style.validacion}> </p>
+            )}
           </div>
 
           <div className={style.form}>
@@ -281,27 +321,29 @@ const CreandoPoke = () => {
             </label>
             {validacion.img ? (
               <p className={style.validacion}>{validacion.img}</p>
-            ): <p className={style.validacion}>{" "}</p>}
+            ) : (
+              <p className={style.validacion}> </p>
+            )}
           </div>
 
           <div className={style.form}>
             <label>
-            Selecciona un tipo:
-            <select
-              defaultValue={"default"}
-              onChange={(e) => handlerSeleccionarTipo(e)}
-            >
-              <option value="default">Elegir Tipo</option>
-              {tipos &&
-                tipos.map((elemento) => {
-                  return (
-                    <option key={elemento.name} value={elemento.name}>
-                      {elemento.name}
-                    </option>
-                  );
-                })}
-            </select>
-            </label>     
+              Selecciona un tipo:
+              <select
+                defaultValue={"default"}
+                onChange={(e) => handlerSeleccionarTipo(e)}
+              >
+                <option value="default">Elegir Tipo</option>
+                {tipos &&
+                  tipos.map((elemento) => {
+                    return (
+                      <option key={elemento.name} value={elemento.name}>
+                        {elemento.name}
+                      </option>
+                    );
+                  })}
+              </select>
+            </label>
           </div>
           <div>
             <ul>
