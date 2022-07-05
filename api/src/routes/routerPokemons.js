@@ -40,6 +40,7 @@ routerPokemons.get("/:id", async(req, res)=>{
         }
     } catch (error) {
         console.log(error)
+        res.status(500).send("Error del servidor")
     }
 })
 
