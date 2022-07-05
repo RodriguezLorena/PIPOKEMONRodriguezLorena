@@ -104,22 +104,14 @@ export const actionBusquedaPorNombre=(payload)=>{
     }
 } 
 
-export const crearPokemon=(payload)=>{
-    return async function(dispatch){
+export const crearPokemon= async (payload)=>{
+   
         try {
-
             let subiendoPokemon= await axios.post("http://localhost:3001/create", payload)
             console.log("ACA ESTA subiendoPokemon ", subiendoPokemon)
-            return dispatch({
-                type: "POKEMON_CREADO",
-                payload: "creado"
-            })
+            return subiendoPokemon
         } catch (error) {
-             return dispatch({
-                type: "POKEMON_NO_CREADO",
-                payload: "noCreado"
-             })
-            
-        }
+            console.log(error)
     }
 }
+

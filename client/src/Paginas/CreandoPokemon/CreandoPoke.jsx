@@ -15,14 +15,14 @@ const CreandoPoke = () => {
   const navegadorAutomatico = useNavigate();
 
   const tipos = useSelector((state) => state.tipos);
-  const creadoDefinitivo = useSelector((state) => state.pokemonCreado);
+  const [creadoDefinitivo, setCreadoDefinitivo] = useState("initial");
   const pokemones = useSelector((state) => state.pokemons);
   console.log("ACA ESTAN TODOS ", pokemones);
 
   useEffect(() => {
     dispatch(traerLosTipos());
     dispatch(traerLosPokemones());
-  },[dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (creadoDefinitivo === "creado") {
@@ -34,7 +34,7 @@ const CreandoPoke = () => {
     if (creadoDefinitivo === "noCreado") {
       alert("no se creo el pokemon");
     }
-  },[creadoDefinitivo, navegadorAutomatico]);
+  }, [creadoDefinitivo, navegadorAutomatico]);
 
   const [nuevoPokemon, setNuevoPokemon] = useState({
     name: "",
@@ -100,7 +100,13 @@ const CreandoPoke = () => {
       if (Object.keys(validaciones(nuevoPokemon)).length) {
         alert("los campos nue pueden estar vacios");
       } else {
-        dispatch(crearPokemon(nuevoPokemon));
+        crearPokemon(nuevoPokemon)
+          .then(() => {
+            setCreadoDefinitivo("creado");
+          })
+          .catch(() => {
+            setCreadoDefinitivo("noCreado");
+          });
       }
     }
   };
@@ -111,7 +117,6 @@ const CreandoPoke = () => {
     let validar = {};
     let verificarQueNoContNumero = /[1-9]/;
     let verificarQueNoTegaEspacio = /[\s]/;
-    
 
     if (verificarQueNoTegaEspacio.test(nuevoPokemon.name))
       validar.name = "No puede contener espacios";
@@ -123,11 +128,12 @@ const CreandoPoke = () => {
       const pokemonFiltrado = pokemones.find(
         (ele) => ele.name.toUpperCase() === nuevoPokemon.name.toUpperCase()
       );
-      validar.name = 
+      validar.name = (
         <Link to={`/detalle/${pokemonFiltrado.id}`}>
-         Ya tenemos este pokemon en nuestra base de datos. Quieres ver a {pokemonFiltrado.name}
+          Ya tenemos este pokemon en nuestra base de datos. Quieres ver a{" "}
+          {pokemonFiltrado.name}
         </Link>
-      
+      );
     }
 
     if (nuevoPokemon.name.length < 2)

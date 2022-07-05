@@ -1,6 +1,6 @@
 const inicialState = {
   pokemons: [],
-  unPokemon: [],
+  unPokemon: {},
   tipos: [],
   pokeNoModificable: [],
   pokemonCreado: "inicial"
