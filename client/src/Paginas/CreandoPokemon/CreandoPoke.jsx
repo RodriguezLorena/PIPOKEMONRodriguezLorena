@@ -75,21 +75,26 @@ const CreandoPoke = () => {
   };
   console.log("ACA ESTA TYPES ", nuevoPokemon.type);
 
+  
   const handlerEliminarTipo = (e) => {
-    const filtrados = nuevoPokemon.type.filter(
+    const filtrados = nuevoPokemon.type.filter(  
       (ele) => ele !== e.target.innerHTML
     );
+    console.log("ACA ESTA SETNUEVOPOKEMON ", filtrados)
     setNuevoPokemon({
       ...nuevoPokemon,
       type: filtrados,
     });
+    
     setValidacion(
       validaciones({
         ...nuevoPokemon,
-        [e.target.name]: e.target.value,
+        type:[...filtrados]
       })
     );
+    console.log("ACA ESTA ELIMINAR TIPOS ", filtrados)
   };
+ 
 
   const handlerCraerPokemon = (e) => {
     e.preventDefault();
@@ -143,7 +148,7 @@ const CreandoPoke = () => {
     if (verificarQueNoContNumero.test(nuevoPokemon.name))
       validar.name = "No puede contener Numeros";
 
-    if (Number(nuevoPokemon.vida) < 20)
+    if (Number(nuevoPokemon.vida) < 20) 
       validar.vida = "tiene que ser una vida mayor a 20";
     if (Number(nuevoPokemon.vida) > 100)
       validar.vida = "tiene que ser una vida menor a 100";
@@ -361,6 +366,7 @@ const CreandoPoke = () => {
                 ))
               ) : (
                 <p className={style.validacion}>{validacion.type}</p>
+              
               )}
             </ul>
           </div>
