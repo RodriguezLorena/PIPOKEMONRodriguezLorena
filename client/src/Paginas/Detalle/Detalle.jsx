@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -19,7 +19,7 @@ const Detalle = () => {
       dispatch(desmontarPokemon());
     };
   }, [dispatch, id]);
- console.log("ACA ESTA EL UN POKEMON", unPokemon )
+ console.log("ACA ESTA EL UNPOKEMON", unPokemon )
   return (
     <div>
       <BarraDeNavegacion />
@@ -33,7 +33,7 @@ const Detalle = () => {
             <p>Defensa: {unPokemon.Defensa}</p>
             <p>Velocidad: {unPokemon.Velocidad}</p>
             <p>Peso: {unPokemon.Peso}</p>
-            {unPokemon.types && unPokemon.types.map((ele) => <p>{ele.name}</p>)}
+            {unPokemon.types && unPokemon.types.map((ele, i) => <p key={i}>{ele.name}</p>)}
 
             <img
               src={unPokemon.img}

@@ -15,7 +15,7 @@ const Encabezado = ({setCurrentPage}) => {
     }, [dispatch])
 
 //ARRANCO CON LAS FUNCIONES QUE  MANIPULAN MIS EVENTOS 
-//ORDEN POR TIPO
+//FILTRO POR TIPO
     const handlerCambiarTipos=(e)=>{
         let valor = e.target.value;
         dispatch(actionTipos(valor))  
@@ -64,9 +64,9 @@ const Encabezado = ({setCurrentPage}) => {
         <select className={style.filtro} onChange={(e)=>handlerCambiarTipos(e)} name="Tipos">
             <option value="todos">Todos los tipos</option>
             {
-                tipos && tipos.map((ele)=>{
+                tipos && tipos.map((ele, i)=>{
                     return(
-                        <option key={ele.id} value={ele.name}>{ele.name}</option>
+                        <option key={i} value={ele.name}>{ele.name}</option>
                     )
                 })
             }
@@ -84,10 +84,9 @@ const Encabezado = ({setCurrentPage}) => {
         </select>
 
         <select className={style.filtro} onChange={(e)=>handlerCambiarOrdenPorAtaque(e)} name= "Orden por ataque">
-            <option value="minMax">Ataque Minimo</option>
+            <option selected value="minMax">Ataque Minimo</option>
             <option value="maxMin">Ataque Maximo</option>
         </select>
-
         <form onSubmit={(e)=>onSubmitPorNombre(e)}>
             <input className={style.buscador} type="text" value={busquedaNombre} onChange={(e)=>handlerPorNombre(e)} placeholder="Busca por mi nombre"/>
             <input className={style.buscador} type="submit" value="Buscar"/>

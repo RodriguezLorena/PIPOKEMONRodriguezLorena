@@ -1,9 +1,9 @@
 const inicialState = {
   pokemons: [],
-  unPokemon: {},
+  unPokemon: [],
   tipos: [],
   pokeNoModificable: [],
-  pokemonCreado: "inicial"
+  pokemonCreado: "inicial",
 };
 
 function reducer(state = inicialState, { type, payload }) {
@@ -34,23 +34,41 @@ function reducer(state = inicialState, { type, payload }) {
       let listaTipos;
       if (payload === "todos") {
         listaTipos = listaPokemon;
+        return{
+          ...state,
+          pokemons: listaTipos
+        }
       } else {
         listaTipos = listaPokemon.filter((ele) =>
           ele.types?.map((ele) => ele.name).includes(payload)
         );
 
-        console.log("ACA TRAIGO TIPOS ", listaTipos);
+
+        if (!listaTipos.length == 0) {
+          let resultadoPrevio = listaTipos;
+          console.log("aca esta resultado if", resultadoPrevio);
+          return {
+            ...state,
+            pokemons: resultadoPrevio,
+          };
+        } else {
+          let resultadoPrevio = listaPokemon;
+          console.log("aca esta resultado else", resultadoPrevio);
+          alert("No existe un pokemon asociado a este tipo");
+          return {
+            ...state,
+            pokemons: resultadoPrevio,
+          };
+        } 
       }
-      return {
-        ...state,
-        pokemons: listaTipos,
-      };
+    
     case "ORDEN_ALFABETICO":
       const listaDePokemon = [...state.pokemons];
       if (payload === "aZ") {
-        listaDePokemon.sort((obj1, obj2) => obj1.name.toLowerCase() < obj2.name.toLowerCase() 
-        ? -1 
-        : 1)} //
+        listaDePokemon.sort((obj1, obj2) =>
+          obj1.name.toLowerCase() < obj2.name.toLowerCase() ? -1 : 1
+        );
+      } //
       if (payload === "zA") {
         listaDePokemon.sort((obj1, obj2) => {
           if (obj1.name.toLowerCase() < obj2.name.toLowerCase()) {
@@ -106,28 +124,36 @@ function reducer(state = inicialState, { type, payload }) {
     case "BUSQUEDA_POR_NOMBRE":
       let busquedaPokemon = [...state.pokeNoModificable];
       let resultado = busquedaPokemon.filter((ele) =>
-        ele.name.toLowerCase().includes(payload.toString().toLowerCase())
+        ele.name.toLowerCase().includes(payload.toLowerCase())
       );
-      if (resultado) {
+
+      if (!resultado.length == 0) {
+        let resultadoPrevio = resultado;
+        console.log("aca esta resultado if", resultadoPrevio);
         return {
           ...state,
-          pokemons: resultado,
+          pokemons: resultadoPrevio,
         };
       } else {
+        let resultadoPrevio = busquedaPokemon;
+        console.log("aca esta resultado else", resultadoPrevio);
+        alert("NO existe pokemon");
         return {
           ...state,
+          pokemons: resultadoPrevio,
         };
       }
+
     case "POKEMON_CREADO":
-        return{
-            ...state,
-            pokemonCreado: payload
-        }
+      return {
+        ...state,
+        pokemonCreado: payload,
+      };
     case "POKEMON_NO_CREADO":
-        return{
-            ...state,
-            pokemonCreado: payload
-        }
+      return {
+        ...state,
+        pokemonCreado: payload,
+      };
     default:
       return state;
   }

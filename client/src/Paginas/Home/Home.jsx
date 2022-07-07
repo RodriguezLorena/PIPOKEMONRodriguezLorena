@@ -8,6 +8,7 @@ import Encabezado from "../../componentes/encabezado/Encabezado";
 import Loading from "../../componentes/loading/Loading";
 import BarraDeNavegacion from "../../componentes/barraDeNavegacion/BarraDeNavegacion";
 
+
 const Home = () => {
   const dispatch = useDispatch();
   const pokemones = useSelector((state) => state.pokemons);
@@ -53,11 +54,11 @@ const Home = () => {
               Pagina anterior
             </button>
             {numeroDePaginas &&
-              numeroDePaginas.map((num) => {
+              numeroDePaginas.map((num, i) => {
                 return num !== currentPage ? (
                   <button
                     className={style.pag}
-                    key={num}
+                    key={i}
                     onClick={() => paginas(num)}
                   >
                     {num}
@@ -65,7 +66,7 @@ const Home = () => {
                 ) : (
                   <button
                     className={style.pagCurrent}
-                    key={num}
+                    key={i}
                     onClick={() => paginas(num)}
                   >
                     {num}

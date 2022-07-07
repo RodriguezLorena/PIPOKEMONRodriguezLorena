@@ -28,7 +28,7 @@ const Loading = () => {
         
         </div>
       <div>
-      <h1 className={style.titulo}>Ups algo paso, vuelve a intentarlo</h1>
+      <h1 className={style.titulo}>upp, parece que no existe lo que busca</h1>
        <Link to= "/home">Volver al home</Link>
       </div>
       </div>

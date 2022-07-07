@@ -103,7 +103,7 @@ const CreandoPoke = () => {
       alert("todos los campos son requeridos");
     } else {
       if (Object.keys(validaciones(nuevoPokemon)).length) {
-        alert("los campos nue pueden estar vacios");
+        alert("los campos no pueden estar vacios");
       } else {
         crearPokemon(nuevoPokemon)
           .then(() => {
