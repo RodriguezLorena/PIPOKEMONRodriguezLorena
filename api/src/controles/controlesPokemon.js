@@ -76,7 +76,8 @@ try {
             through:{ attributes: []}
         }
     })
-    return pokemon
+    return pokemon 
+    //aca tendria que hacer mi condicional... pero como???
 
 } catch (error) {
     console.log(error)

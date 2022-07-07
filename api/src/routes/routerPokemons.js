@@ -12,11 +12,14 @@ routerPokemons.get("/", async(req, res)=>{
    
         const {name}=req.query
         if(name){
-            let nombrePoke= todosLosPoke.find((elemento)=> elemento.name == name)
+            let nombrePoke= todosLosPoke.filter((elemento)=> elemento.name == name)
+            console.log(typeof nombrePoke)
+             nombrePoke.length?
             res.status(200).send(nombrePoke)
-        }else{
-            res.status(200).send(todosLosPoke)
-        }
+           : res.status(400).send("no existe el poke")
+         }else{
+             res.status(200).send(todosLosPoke)
+         }
         
     } catch (error) {
         console.log(error.message)

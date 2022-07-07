@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
      type: DataTypes.UUID,  
      defaultValue: DataTypes.UUIDV4,
      primaryKey: true,
-     allowNull:false
+     allowNull:false,
     },
     name: {
       type: DataTypes.STRING,
@@ -32,7 +32,10 @@ module.exports = (sequelize) => {
     },
     Altura:{
       type:DataTypes.INTEGER, //height
-      allowNull: false
+      allowNull: false,
+      get(){
+        return this.getDataValue("Altura") + " cm"
+      }
     },
     Peso:{
       type: DataTypes.INTEGER, //weight
