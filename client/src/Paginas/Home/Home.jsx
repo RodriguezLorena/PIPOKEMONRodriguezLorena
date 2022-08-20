@@ -1,8 +1,9 @@
 import React from "react";
 import Cards from "../../componentes/cards/Cards";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { traerLosPokemones } from "../../redux/actions";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import style from "./home.module.css";
 import Encabezado from "../../componentes/encabezado/Encabezado";
 import Loading from "../../componentes/loading/Loading";
@@ -35,6 +36,7 @@ const Home = () => {
     if (currentPage === 1) return;
     setCurrentPage(currentPage - 1);
   };
+  
   const paginas = (numPag) => {
     setCurrentPage(numPag);
   };

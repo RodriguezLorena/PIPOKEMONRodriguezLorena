@@ -87,6 +87,7 @@ const Encabezado = ({setCurrentPage}) => {
             <option selected value="minMax">Ataque Minimo</option>
             <option value="maxMin">Ataque Maximo</option>
         </select>
+        
         <form onSubmit={(e)=>onSubmitPorNombre(e)}>
             <input className={style.buscador} type="text" value={busquedaNombre} onChange={(e)=>handlerPorNombre(e)} placeholder="Busca por mi nombre"/>
             <input className={style.buscador} type="submit" value="Buscar"/>

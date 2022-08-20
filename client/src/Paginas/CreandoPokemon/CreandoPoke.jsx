@@ -26,7 +26,7 @@ const CreandoPoke = () => {
 
   useEffect(() => {
     if (creadoDefinitivo === "creado") {
-      alert("se creo exitosamente");
+      alert("se creo el nuevo pokemon");
       setTimeout(() => {
         navegadorAutomatico("/home");
       });
@@ -62,20 +62,40 @@ const CreandoPoke = () => {
   };
 
   const handlerSeleccionarTipo = (e) => {
-    setNuevoPokemon({
-      ...nuevoPokemon,
-      type: [...nuevoPokemon.type, e.target.value],
-    });
-    setValidacion(
-      validaciones({
-        ...nuevoPokemon,
-        type: [...nuevoPokemon.type, e.target.value],
-      })
+    const res =nuevoPokemon.type.filter(
+      (ele) => ele !== e.target.innerHTML 
+      
     );
-  };
-  console.log("ACA ESTA TYPES ", nuevoPokemon.type);
 
-  
+    if(res.includes(e.target.value)){
+      alert("Ya se eligió este tipo")
+      setNuevoPokemon({
+          ...nuevoPokemon,
+          type: [...nuevoPokemon.type ]
+      
+      })
+      setValidacion(
+          validaciones({
+              ...nuevoPokemon,
+              type: [...nuevoPokemon.type]
+          })
+      )
+      
+  }  else {
+       console.log("PRRR")
+      setNuevoPokemon({
+          ...nuevoPokemon,
+          type: [...nuevoPokemon.type, e.target.value ]
+      
+      })
+      setValidacion(
+          validaciones({
+              ...nuevoPokemon,
+             type: [...nuevoPokemon.type, e.target.value]
+          })
+      ) 
+  }
+  }
   const handlerEliminarTipo = (e) => {
     const filtrados = nuevoPokemon.type.filter(  
       (ele) => ele !== e.target.innerHTML
@@ -144,7 +164,7 @@ const CreandoPoke = () => {
     if (nuevoPokemon.name.length < 2)
       validar.name = "Necesita tener un minimo de 2 caracteres";
     if (nuevoPokemon.name.length > 15)
-      validar.name = "Tiene que tener un minimo de 15 caracteres";
+      validar.name = "Tiene que tener un maximo de 15 caracteres";
     if (verificarQueNoContNumero.test(nuevoPokemon.name))
       validar.name = "No puede contener Numeros";
 
@@ -181,8 +201,9 @@ const CreandoPoke = () => {
     if (!nuevoPokemon.img.includes("https://"))
       validar.img = "Debe comenzar con https://";
 
-    if (!nuevoPokemon.type.length)
+    if (nuevoPokemon.type.length == 0)
       validar.type = "Debe contener al menos un tipo";
+   
     return validar;
   }
 

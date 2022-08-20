@@ -91,17 +91,21 @@ export function actionOrdenarPorAtaque(payload){
     }
 }
 
-export const actionBusquedaPorNombre=(payload)=>{
+export const actionBusquedaPorNombre=(name)=>{
     return async function(dispatch){
         try {
+             let nombre= await axios(`http://localhost:3001/pokemons?name=${name}`)
             return dispatch({
                 type: "BUSQUEDA_POR_NOMBRE",
-                payload
+                payload: nombre
             })
         } catch (error) {
-            console.log("ERROR EN LA BUSQUEDA POR NOMBRE DE POKEMON ", error)
+            console.log("ERROR EN LA LLAMADA POR QUERY PARAMS", error)
+            
+           
         }
     }
+    
 } 
 
 export const crearPokemon= async (payload)=>{

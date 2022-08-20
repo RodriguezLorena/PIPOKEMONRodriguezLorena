@@ -42,25 +42,25 @@ function reducer(state = inicialState, { type, payload }) {
         listaTipos = listaPokemon.filter((ele) =>
           ele.types?.map((ele) => ele.name).includes(payload)
         );
-
-
-        if (!listaTipos.length == 0) {
-          let resultadoPrevio = listaTipos;
-          console.log("aca esta resultado if", resultadoPrevio);
-          return {
-            ...state,
-            pokemons: resultadoPrevio,
-          };
-        } else {
-          let resultadoPrevio = listaPokemon;
-          console.log("aca esta resultado else", resultadoPrevio);
-          alert("No existe un pokemon asociado a este tipo");
-          return {
-            ...state,
-            pokemons: resultadoPrevio,
-          };
-        } 
-      }
+  
+  
+      if (!listaTipos.length == 0) {
+        let resultadoPrevio = listaTipos;
+        console.log("aca esta resultado if", resultadoPrevio);
+        return {
+          ...state,
+          pokemons: resultadoPrevio,
+        };
+      } else {
+        let resultadoPrevio = listaPokemon;
+        console.log("aca esta resultado else", resultadoPrevio);
+        alert("No existe el Tipo que esta buscando");
+        return {
+          ...state,
+          pokemons: resultadoPrevio,
+        };
+      } 
+    }
     
     case "ORDEN_ALFABETICO":
       const listaDePokemon = [...state.pokemons];
@@ -82,6 +82,7 @@ function reducer(state = inicialState, { type, payload }) {
         ...state,
         pokemons: listaDePokemon,
       };
+    
     case "FILTRO_ORIGEN":
       let losPoke = [...state.pokeNoModificable];
       let filtrados;
@@ -97,6 +98,7 @@ function reducer(state = inicialState, { type, payload }) {
         ...state,
         pokemons: filtrados,
       };
+      
     case "ORDEN_POR_ATAQUE":
       let listaDeAtaque = [...state.pokemons];
       if (payload === "minMax") {
@@ -122,27 +124,18 @@ function reducer(state = inicialState, { type, payload }) {
         pokemons: listaDeAtaque,
       };
     case "BUSQUEDA_POR_NOMBRE":
-      let busquedaPokemon = [...state.pokeNoModificable];
-      let resultado = busquedaPokemon.filter((ele) =>
-        ele.name.toLowerCase().includes(payload.toLowerCase())
-      );
-
-      if (!resultado.length == 0) {
-        let resultadoPrevio = resultado;
-        console.log("aca esta resultado if", resultadoPrevio);
-        return {
-          ...state,
-          pokemons: resultadoPrevio,
-        };
-      } else {
-        let resultadoPrevio = busquedaPokemon;
-        console.log("aca esta resultado else", resultadoPrevio);
-        alert("NO existe pokemon");
-        return {
-          ...state,
-          pokemons: resultadoPrevio,
-        };
-      }
+      console.log("ACA ESTA PAYLOAD SOLITO ", payload)
+      if(!payload.data){
+        
+        return alert("No se encuentra el Pokemon que esta buscando")
+        
+      }else{
+        console.log("ENCONTRE ALGO ", payload)
+        return{
+            ...state, 
+            pokemons: payload.data
+          }
+        }
 
     case "POKEMON_CREADO":
       return {
